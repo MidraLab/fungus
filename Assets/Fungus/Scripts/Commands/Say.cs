@@ -8,8 +8,8 @@ namespace Fungus
     /// <summary>
     /// Writes text in a dialog box.
     /// </summary>
-    [CommandInfo("Narrative", 
-                 "Say", 
+    [CommandInfo("Narrative",
+        "Say",
                  "Writes text in a dialog box.")]
     [AddComponentMenu("")]
     public class Say : Command, ILocalizable
@@ -63,7 +63,20 @@ namespace Fungus
         /// <summary>
         /// Character that is speaking.
         /// </summary>
-        public virtual Character _Character { get { return character; } }
+        public virtual Character _Character
+        {
+            get => character;
+            set => character = value;
+        }
+
+        /// <summary>
+        /// character voice to display in the dialog box.
+        /// </summary>
+        public AudioClip VoiceOverClip
+        {
+            get => voiceOverClip;
+            set => voiceOverClip = value;
+        }
 
         /// <summary>
         /// Portrait that represents speaking character.
@@ -102,7 +115,7 @@ namespace Fungus
                 Continue();
                 return;
             }
-    
+
             var flowchart = GetFlowchart();
 
             sayDialog.SetActive(true);
@@ -133,7 +146,7 @@ namespace Fungus
         public override string GetSummary()
         {
             string namePrefix = "";
-            if (character != null) 
+            if (character != null)
             {
                 namePrefix = character.NameText + ": ";
             }
@@ -183,7 +196,7 @@ namespace Fungus
         {
             return description;
         }
-        
+
         public virtual string GetStringId()
         {
             // String id for Say commands is SAY.<Localization Id>.<Command id>.[Character Name]

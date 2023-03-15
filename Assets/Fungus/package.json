@@ -1,7 +1,7 @@
 ﻿{
   "name": "com.midralab.fungus",
   "displayName": "Fungus",
-  "version": "3.13.8",
+  "version": "3.13.9",
   "unity": "2022.2",
   "description": "An easy to use Unity 3D library for creating illustrated Interactive Fiction games and more",
 
