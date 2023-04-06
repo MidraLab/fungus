@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 namespace Fungus
 {
@@ -24,7 +25,7 @@ namespace Fungus
         [SerializeField] protected Canvas dialogCanvas;
 
         [Tooltip("The name text UI object")]
-        [SerializeField] protected Text nameText;
+        [SerializeField] protected TextMeshProUGUI nameText;
         [Tooltip("TextAdapter will search for appropriate output on this GameObject if nameText is null")]
         [SerializeField] protected GameObject nameTextGO;
         protected TextAdapter nameTextAdapter = new TextAdapter();
@@ -41,7 +42,7 @@ namespace Fungus
         }
 
         [Tooltip("The story text UI object")]
-        [SerializeField] protected Text storyText;
+        [SerializeField] protected TextMeshProUGUI storyText;
         [Tooltip("TextAdapter will search for appropriate output on this GameObject if storyText is null")]
         [SerializeField] protected GameObject storyTextGO;
         protected TextAdapter storyTextAdapter = new TextAdapter();
@@ -67,14 +68,14 @@ namespace Fungus
         [Tooltip("The character UI object")]
         [SerializeField] protected Image characterImage;
         public virtual Image CharacterImage { get { return characterImage; } }
-    
+
         [Tooltip("Adjust width of story text when Character Image is displayed (to avoid overlapping)")]
         [SerializeField] protected bool fitTextWithImage = true;
 
         [Tooltip("Close any other open Say Dialogs when this one is active")]
         [SerializeField] protected bool closeOtherDialogs;
 
-        protected float startStoryTextWidth; 
+        protected float startStoryTextWidth;
         protected float startStoryTextInset;
 
         protected WriterAudio writerAudio;
@@ -110,7 +111,7 @@ namespace Fungus
 		{
 			activeSayDialogs.Remove(this);
 		}
-			
+
 		protected virtual Writer GetWriter()
         {
             if (writer != null)
@@ -133,13 +134,13 @@ namespace Fungus
             {
                 return canvasGroup;
             }
-            
+
             canvasGroup = GetComponent<CanvasGroup>();
             if (canvasGroup == null)
             {
                 canvasGroup = gameObject.AddComponent<CanvasGroup>();
             }
-            
+
             return canvasGroup;
         }
 
@@ -149,13 +150,13 @@ namespace Fungus
             {
                 return writerAudio;
             }
-            
+
             writerAudio = GetComponent<WriterAudio>();
             if (writerAudio == null)
             {
                 writerAudio = gameObject.AddComponent<WriterAudio>();
             }
-            
+
             return writerAudio;
         }
 
@@ -168,7 +169,7 @@ namespace Fungus
             GraphicRaycaster raycaster = GetComponent<GraphicRaycaster>();
             if (raycaster == null)
             {
-                gameObject.AddComponent<GraphicRaycaster>();    
+                gameObject.AddComponent<GraphicRaycaster>();
             }
 
             // It's possible that SetCharacterImage() has already been called from the
@@ -180,7 +181,7 @@ namespace Fungus
                 SetCharacterName("", Color.white);
             }
             if (currentCharacterImage == null)
-            {                
+            {
                 // Character image is hidden by default.
                 SetCharacterImage(null);
             }
@@ -226,7 +227,7 @@ namespace Fungus
                 canvasGroup.alpha = alpha;
 
                 if (alpha <= 0f)
-                {                   
+                {
                     // Deactivate dialog object once invisible
                     gameObject.SetActive(false);
                 }
@@ -377,7 +378,7 @@ namespace Fungus
                     // Use game object name as default
                     characterName = character.GetObjectName();
                 }
-                    
+
                 SetCharacterName(characterName, character.NameColor);
             }
         }
@@ -404,34 +405,34 @@ namespace Fungus
 
                 if (startStoryTextWidth != 0)
                 {
-                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
-                        startStoryTextInset, 
+                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left,
+                        startStoryTextInset,
                         startStoryTextWidth);
                 }
             }
 
             // Adjust story text box to not overlap image rect
-            if (fitTextWithImage && 
+            if (fitTextWithImage &&
                 StoryText != null &&
                 characterImage.gameObject.activeSelf)
             {
                 if (Mathf.Approximately(startStoryTextWidth, 0f))
                 {
                     startStoryTextWidth = StoryTextRectTrans.rect.width;
-                    startStoryTextInset = StoryTextRectTrans.offsetMin.x; 
+                    startStoryTextInset = StoryTextRectTrans.offsetMin.x;
                 }
 
                 // Clamp story text to left or right depending on relative position of the character image
                 if (StoryTextRectTrans.position.x < characterImage.rectTransform.position.x)
                 {
-                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 
-                        startStoryTextInset, 
+                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left,
+                        startStoryTextInset,
                         startStoryTextWidth - characterImage.rectTransform.rect.width);
                 }
                 else
                 {
-                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 
-                        startStoryTextInset, 
+                    StoryTextRectTrans.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right,
+                        startStoryTextInset,
                         startStoryTextWidth - characterImage.rectTransform.rect.width);
                 }
             }
