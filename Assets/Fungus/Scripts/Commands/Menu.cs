@@ -1,17 +1,17 @@
 // This code is part of the Fungus library (https://github.com/snozbot/fungus)
 // It is released for free under the MIT open source license (https://github.com/snozbot/fungus/blob/master/LICENSE)
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using System.Collections.Generic;
 
 namespace Fungus
 {
     /// <summary>
     /// Displays a button in a multiple choice menu.
     /// </summary>
-    [CommandInfo("Narrative", 
-                 "Menu", 
+    [CommandInfo("Narrative",
+        "Menu",
                  "Displays a button in a multiple choice menu")]
     [AddComponentMenu("")]
     public class Menu : Command, ILocalizable, IBlockCaller
@@ -63,16 +63,13 @@ namespace Fungus
 
                     menuDialog.AddOption(displayText, interactable, hideOption, targetBlock);
                 }
-            
+
             Continue();
         }
 
         public override void GetConnectedBlocks(ref List<Block> connectedBlocks)
         {
-            if (targetBlock != null)
-            {
-                connectedBlocks.Add(targetBlock);
-            }       
+            if (targetBlock != null) connectedBlocks.Add(targetBlock);
         }
 
         public override string GetSummary()
@@ -106,6 +103,11 @@ namespace Fungus
             return block == targetBlock;
         }
 
+        public void SetTargetBlock(Block targetBlock)
+        {
+            this.targetBlock = targetBlock;
+        }
+
         #endregion
 
         #region ILocalizable implementation
@@ -119,12 +121,12 @@ namespace Fungus
         {
             text = standardText;
         }
-        
+
         public virtual string GetDescription()
         {
             return description;
         }
-        
+
         public virtual string GetStringId()
         {
             // String id for Menu commands is MENU.<Localization Id>.<Command id>
