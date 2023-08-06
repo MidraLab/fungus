@@ -18,7 +18,7 @@ namespace Fungus.EditorUtils
         }
 
         [MenuItem("Tools/Fungus/Create/Say Dialog", false, 51)]
-        static void CreateSayDialog()
+        public static void CreateSayDialog()
         {
             GameObject go = FlowchartMenuItems.SpawnPrefab("SayDialog");
             go.transform.position = Vector3.zero;
@@ -46,7 +46,7 @@ namespace Fungus.EditorUtils
         }
 
         [MenuItem("Tools/Fungus/Create/Stage", false, 55)]
-        static void CreateStage()
+        public static void CreateStage()
         {
             GameObject go = FlowchartMenuItems.SpawnPrefab("Stage");
             go.transform.position = Vector3.zero;
