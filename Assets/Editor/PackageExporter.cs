@@ -12,7 +12,7 @@ public static class PackageExporter
     ///     パッケージの書き出し(エディタ上でのテスト用)
     ///     メニュー 「Tools > Export Unitypackage Test」をクリックで実行
     /// </summary>
-    [MenuItem("Tools/Export Unitypackage Test")]
+    [MenuItem("Tools/Export Unitypackage")]
     public static void ExportTestOnEditor()
     {
         var exportPath = EditorUtility.SaveFilePanel
